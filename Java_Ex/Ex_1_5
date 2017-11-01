@@ -1,0 +1,21 @@
+package JAVA_Test;
+/**
+ * 递归返回N二进制中含有1的个数
+ * @author weizhiwei
+ *
+ */
+public class Ex_1_5 {
+	public static void main(String[] args){
+		int N=15;
+		System.out.println(N+"的二进制表达式中1的个数为："+binaryOneCount(N));
+		System.out.println(N+"的二进制是："+Integer.toBinaryString(N));
+	}
+	public static int binaryOneCount(int N){
+		if(N==0)
+			return 0;
+		if(N%2==1)
+			return binaryOneCount(N/2)+1;
+		else
+			return binaryOneCount(N/2);
+	}
+}
