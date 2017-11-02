@@ -1,0 +1,50 @@
+package JAVA_Test;
+/**
+ * Ex_1_13 is Collection
+ * @author weizhiwei
+ *
+ * @param <T>
+ */
+public class Ex_1_13<T> {
+	private Object[] obj;
+	public Object[] getObj() {
+		return obj;
+	}
+	public void setObj(Object[] obj) {
+		this.obj = obj;
+	}
+	public boolean isEmpty(){
+		return obj.length==0;
+	}
+	public void makeEmpty(){
+		obj=new Object[]{};
+	}
+	public void insert(T x){
+		Object[] temp=new Object[obj.length+1];
+		for(int i=0;i<obj.length;i++)
+			temp[i]=obj[i];
+		temp[temp.length-1]=x;
+		obj=temp;
+	}
+	public void remove(T o){
+		int flag=0,count=0;
+		Object[] temp=new Object[obj.length-1];
+		for(Object i:obj){
+			if(i.equals(o))
+				flag=count;
+			count++;
+		}
+		for(int i=flag;i<obj.length-1;i++)
+			obj[i]=obj[i+1];
+		for(int i=0;i<obj.length;i++)
+			temp[i]=obj[i];
+		obj=temp;
+	}
+	public boolean isPresent(T x){
+		for(Object i:obj){
+			if(i.equals(x))
+				return true;
+		}
+		return false;
+	}
+}
