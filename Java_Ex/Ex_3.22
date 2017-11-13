@@ -1,0 +1,47 @@
+import java.util.Scanner;
+import java.util.Stack;
+//以空格分割运算符，必须要有等于号=结尾
+public class CalculatorBackwards {
+	public static void main(String[] args){
+		System.out.println(evalPostFix());
+	}
+	public static double evalPostFix(){
+		Stack<Double>  s=new Stack<Double>();
+		String token;
+		Double a,b,result=0.0;
+		boolean isNumber;
+		
+		Scanner sc=new Scanner(System.in);
+		token=sc.next();
+		while(token.charAt(0)!='='){
+			try {
+				isNumber=true;
+				result=Double.parseDouble(token);
+			} catch (NumberFormatException e) {
+				// TODO Auto-generated catch block
+				isNumber=false;
+			}
+			if(isNumber)
+				s.push(result);
+			else{
+				
+				switch(token){
+				case "+":a=s.pop();b=s.pop();
+						s.push(a+b);break;
+				case "-":a=s.pop();b=s.pop();
+						s.push(a-b);break;
+				case "*":a=s.pop();b=s.pop();
+						s.push(a*b);break;
+				case "/":a=s.pop();b=s.pop();
+						s.push(a/b);break;
+				case "^":a=s.pop();b=s.pop();
+						s.push(Math.exp(a*Math.log(b)));break;
+				default:System.out.println("错误！");break;
+				}
+			}
+			token=sc.next();
+		}
+		sc.close();
+		return s.peek();
+	}
+}
