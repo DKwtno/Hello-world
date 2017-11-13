@@ -1,0 +1,55 @@
+import java.util.Scanner;
+import java.util.Stack;
+
+/**
+ * 输入中缀表达式，输出后缀表达式
+ * @author weizhiwei
+ *
+ */
+public class NiFixToPostFix {
+	public static void main(String[] args){
+		niToPost();
+	}
+	public static void niToPost(){
+		Scanner sc=new Scanner(System.in);
+		Stack<Character> s=new Stack<>();
+		String expression=sc.next();
+		Character token;
+		int i=0;
+		while((token=expression.charAt(i++))!='='){
+			if(token>='a'&&token<='z')
+				System.out.print(token+" ");
+			else {
+				switch(token){
+				case ')':
+					while(!s.empty()&&s.peek()!='('){
+						System.out.print(s.pop()+' ');
+					}
+					s.pop();
+					break;
+				case '(':
+					s.push(token);
+					break;
+				case '^':while(!s.empty()&&!(s.peek()==')'||s.peek()=='(')){
+					System.out.print(s.pop());
+				}
+				s.push(token);
+				break;
+				case '+':
+				case '-':while(!s.empty()&&s.peek()!='('){
+					System.out.print(s.pop()+' ');}
+					s.push(token);
+					break;
+				case '*':
+				case '/':while(!s.empty()&&s.peek()!='('&&s.peek()!='+'&&s.peek()!='-'){
+					System.out.print(s.pop());}
+					s.push(token);
+					break;
+			}
+		}
+		}
+		while(!s.empty())
+		{ System.out.print(s.pop()); }
+		System.out.println();
+	}
+}
