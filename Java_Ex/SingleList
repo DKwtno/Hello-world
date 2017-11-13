@@ -1,0 +1,57 @@
+package JAVA数据结构;
+
+public class SingleList<AnyType> {
+	Node<Comparable> head;
+	int theSize;
+	
+	boolean contains(AnyType x){
+		Node<Comparable> temp=head;
+		while(temp.next!=null){
+			if(temp.data.equals(x))
+				return true;
+			temp=temp.next;
+		}
+		return false;
+	}
+	//add是在head之后添加新的节点，而不是在链表末端
+	boolean add(AnyType t){
+		if(contains(t))
+			return false;
+		Node<Comparable> p=head.next;
+		Node<Comparable> trailer=head;
+		while(p!=null&&p.data.compareTo(t)<=0){
+			trailer=p;
+			p=p.next;
+		}
+		trailer.next=new Node(t);
+		trailer.next.next=p;
+		theSize++;
+		return true;
+	}
+	
+
+	void init(){
+		this.head=new Node<Comparable>();
+		head.next=null;
+		this.theSize=0;
+	}
+	
+	private class Node<Comparable>{
+		Comparable data;
+		Node next;
+		Node(){
+			this(null,null);
+		}
+		Node(Comparable a){
+			this(a,null);
+		}
+		Node(Comparable a,Node b){
+			data=a;
+			next=b;
+		}
+	}
+	
+	SingleList(){
+		init();
+	}
+}
